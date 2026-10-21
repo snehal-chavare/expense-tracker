@@ -29,7 +29,7 @@ python -m expense_tracker <command> [options]
 | Command | What it does |
 | :------ | :----------- |
 | `add AMOUNT CATEGORY DATE [--note NOTE]` | Record an expense. `DATE` is `YYYY-MM-DD`. |
-| `list [--category CATEGORY]` | List expenses, optionally filtered by category. |
+| `list [--category CATEGORY] [--since YYYY-MM-DD] [--until YYYY-MM-DD]` | List expenses, optionally filtered by category and date range. Both bounds are inclusive and each works on its own. |
 | `summary [--month YYYY-MM]` | Show total spending per category, optionally filtered to one month. |
 | `delete ID` | Delete an expense by its id. |
 
@@ -39,6 +39,7 @@ python -m expense_tracker <command> [options]
 python -m expense_tracker add 12.50 groceries 2026-01-15 --note "weekly shop"
 python -m expense_tracker list
 python -m expense_tracker list --category groceries
+python -m expense_tracker list --since 2026-01-01 --until 2026-01-31
 python -m expense_tracker summary
 python -m expense_tracker summary --month 2026-01
 python -m expense_tracker delete 1
@@ -63,6 +64,7 @@ expense_tracker/
   storage.py           # JSON load/save
   models.py            # the Expense record
   money.py             # money parsing/formatting (integer cents)
+  dates.py             # ISO 8601 date parsing/validation
   commands/            # one module per command
     add.py
     list_cmd.py
